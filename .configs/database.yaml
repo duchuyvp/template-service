@@ -1,5 +1,0 @@
-database:
-  type: "postgres"
-  framework: "sqlalchemy"
-  connection:
-    url: "postgresql://admin:adminpw@localhost:5432/test"
