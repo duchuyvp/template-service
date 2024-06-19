@@ -1,0 +1,91 @@
+name: Python CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  build-and-push:
+    runs-on: dind-runner
+    services:
+      postgres:
+        image: postgres:13
+        ports: ["5432:5432"]
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: test_db
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+      minio:
+        image: minio/minio:edge-cicd
+        ports: ["9000:9000"]
+        env:
+          MINIO_ACCESS_KEY: minio
+          MINIO_SECRET_KEY: minio123456
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: 3.12
+
+      - run: |
+          python -m pip install --upgrade pip
+          pip install poetry
+          poetry install
+
+      - run: |
+          poetry run pytest
+        env:
+          POSTGRES_DB: test_db
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_HOST: localhost
+          POSTGRES_PORT: 5432
+
+          MINIO_ACCESS_KEY: minio
+          MINIO_SECRET_KEY: minio123456
+          MINIO_HOST: localhost
+          MINIO_PORT: 9000
+
+      - uses: docker/setup-qemu-action@v3
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+          registry: ${{ secrets.REGISTRY_SERVER }}
+
+      - uses: docker/build-push-action@v3
+        with:
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ${{ secrets.REGISTRY_SERVER }}/${{ secrets.REGISTRY_USERNAME }}/user-service:${{ github.sha }}
+
+      - uses: actions/checkout@v4
+        with:
+          repository: duchuyvp/chart
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          ref: master
+
+      - run: |
+          IMAGE="${{ secrets.REGISTRY_SERVER }}\/${{ secrets.REGISTRY_USERNAME }}\/user-service"
+          NEW_IMAGE_TAG="${{ secrets.REGISTRY_SERVER }}/${{ secrets.REGISTRY_USERNAME }}/user-service:${{ github.sha }}"
+          find . -type f \( -name "*values.yml" -o -name "*values.yaml" \) -exec sed -i "s|${IMAGE}:.*|${NEW_IMAGE_TAG}|g" {} \;
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          git add .
+          git commit --allow-empty -m "Promoting ${NEW_IMAGE_TAG}"
+
+      - uses: ad-m/github-push-action@master
+        with:
+          repository: duchuyvp/chart
+          branch: master
+          github_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
