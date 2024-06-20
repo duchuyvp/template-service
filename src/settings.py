@@ -6,7 +6,7 @@ from yaml import safe_load
 #     """Settings."""
 
 #     model_config = pydantic_settings.SettingsConfigDict(
-#         yaml_file=".configs/database.yaml",
+#         env_file=".env",
 #         extra="ignore",
 #         str_strip_whitespace=True,
 #         validate_assignment=True,

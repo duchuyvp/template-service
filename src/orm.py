@@ -5,6 +5,7 @@ import sqlalchemy as sa
 from core.adapters import create_component_factory
 from core.adapters import sqlalchemy_adapter
 from sqlalchemy import Column
+from sqlalchemy import Date
 from sqlalchemy import DateTime
 from sqlalchemy import orm
 from sqlalchemy import String
@@ -26,15 +27,73 @@ def start_mappers(config: dict[str, Any] | None = None) -> None:
 
     registry = component_factory.create_orm_registry()
 
-    model_table = Table(
-        "models",
+    users = Table(
+        "users",
         registry.metadata,
         Column("id", String, primary_key=True),
         Column("created_time", DateTime),
         Column("updated_time", DateTime),
         Column("message_id", String),
+        Column("email", String, unique=True),
+        Column("phone_number", String, unique=True),
+        Column("password", String),
+        Column("first_name", String),
+        Column("last_name", String),
+        Column("email_verified", sa.Boolean),
+        Column("phone_number_verified", sa.Boolean),
+        Column("avatar", String),
+        Column("birthday", Date),
+        Column("address", String),
+        Column("loyalty_score", sa.Float),
     )
-    registry.map_imperatively(models.BaseModel, model_table)
+
+    social_media = Table(
+        "social_media",
+        registry.metadata,
+        Column("id", String, primary_key=True),
+        Column("created_time", DateTime),
+        Column("updated_time", DateTime),
+        Column("message_id", String),
+        Column("user_id", String),
+        Column("provider", String),
+        Column("token", String),
+    )
+
+    otp = Table(
+        "otp",
+        registry.metadata,
+        Column("id", String, primary_key=True),
+        Column("created_time", DateTime),
+        Column("updated_time", DateTime),
+        Column("message_id", String),
+        Column("user_id", String),
+        Column("email", String),
+        Column("phone_number", String),
+        Column("otp", String),
+        Column("expired_time", DateTime),
+        Column("verified", sa.Boolean),
+        Column("expired", sa.Boolean),
+        Column("comment", String),
+    )
+
+    password_reset = Table(
+        "password_reset",
+        registry.metadata,
+        Column("id", String, primary_key=True),
+        Column("created_time", DateTime),
+        Column("updated_time", DateTime),
+        Column("message_id", String),
+        Column("user_id", String),
+        Column("token", String),
+        Column("expired_time", DateTime),
+        Column("expired", sa.Boolean),
+        Column("comment", String),
+    )
+
+    registry.map_imperatively(models.User, users)
+    registry.map_imperatively(models.SocialMedia, social_media)
+    registry.map_imperatively(models.OTP, otp)
+    registry.map_imperatively(models.PasswordReset, password_reset)
 
     engine = component_factory.engine
     registry.metadata.create_all(bind=engine)
