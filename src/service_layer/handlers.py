@@ -130,7 +130,7 @@ def handle_login_command(command: commands.LoginCommand, uow: UnitOfWork) -> Non
         if command.email:
             users = uow.repo.get(models.User, email=command.email)
         else:
-            user = uow.repo.get(models.User, phone_number=command.phone_number)
+            users = uow.repo.get(models.User, phone_number=command.phone_number)
 
         if not users:
             raise fastapi.HTTPException(status_code=404, detail="User not found.")
