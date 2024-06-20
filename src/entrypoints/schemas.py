@@ -1,13 +1,11 @@
 from datetime import date
+from typing import Annotated
 
-from core.messages import Command
+import fastapi
+import pydantic
 
 
-class RegisterEmailCommand(Command):
-    """
-    RegisterEmailCommand.
-    """
-
+class RegisterEmailSchema(pydantic.BaseModel):
     email: str
     password: str
     re_password: str
@@ -18,11 +16,7 @@ class RegisterEmailCommand(Command):
     address: str = ""
 
 
-class RegisterPhoneNumberCommand(Command):
-    """
-    RegisterPhoneNumberCommand.
-    """
-
+class RegisterPhoneNumberSchema(pydantic.BaseModel):
     phone_number: str
     password: str
     re_password: str
@@ -33,30 +27,22 @@ class RegisterPhoneNumberCommand(Command):
     address: str = ""
 
 
-class RegisterSSOCommand(Command):
-    """ """
-
+class RegisterSSOSchema(pydantic.BaseModel):
     provider: str
     token: str
 
 
-class VerifyCommand(Command):
-    """ """
-
+class VerifySchema(pydantic.BaseModel):
     otp_id: str
     otp: str
 
 
-class LoginCommand(Command):
-    """ """
-
+class LoginSchema(pydantic.BaseModel):
     email: str = ""
     phone_number: str = ""
     password: str
-    device_id: str = ""
+    device_id: Annotated[str, fastapi.Header(...)]
 
 
-class LogoutCommand(Command):
-    """ """
-
-    X_Token: str
+class LogoutSchema(pydantic.BaseModel):
+    X_Token: Annotated[str, fastapi.Header(...)]

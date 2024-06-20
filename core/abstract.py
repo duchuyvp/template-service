@@ -57,6 +57,8 @@ class Repository(abc.ABC):
             list[base_model.BaseModel] | base_model.BaseModel | None:
         """
         models = self._get(model_class, **identities)
+        for model in models:
+            model.events = []
         self.cache(models)
 
         return models

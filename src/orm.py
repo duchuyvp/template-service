@@ -90,10 +90,23 @@ def start_mappers(config: dict[str, Any] | None = None) -> None:
         Column("comment", String),
     )
 
+    token = Table(
+        "token",
+        registry.metadata,
+        Column("id", String, primary_key=True),
+        Column("created_time", DateTime),
+        Column("updated_time", DateTime),
+        Column("message_id", String),
+        Column("user_id", String),
+        Column("expired_time", DateTime),
+        Column("expired", sa.Boolean),
+    )
+
     registry.map_imperatively(models.User, users)
     registry.map_imperatively(models.SocialMedia, social_media)
     registry.map_imperatively(models.OTP, otp)
     registry.map_imperatively(models.PasswordReset, password_reset)
+    registry.map_imperatively(models.Token, token)
 
     engine = component_factory.engine
     registry.metadata.create_all(bind=engine)

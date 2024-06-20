@@ -1,7 +1,10 @@
 import dataclasses
 from datetime import date
 from datetime import datetime
+from datetime import timedelta
 
+import fastapi
+import jwt
 from core.models import BaseModel
 
 from src.domain import events
@@ -23,6 +26,26 @@ class User(BaseModel):
 
     def __post_init__(self):
         self.events.append(events.UserCreatedEvent(user_id=self.id, email=self.email, phone_number=self.phone_number))
+
+
+@dataclasses.dataclass(init=True)
+class Token(BaseModel):
+    user_id: str = None
+    expired_time: datetime = dataclasses.field(default_factory=lambda: datetime.now() + timedelta(days=1))
+    expired: bool = False
+
+    def encrypt(self):
+        return jwt.encode(self.json, "my_super_very_secret_promax_samsung", algorithm="HS256")
+
+    @classmethod
+    def decrypt(cls, X_Token) -> "Token":
+        try:
+            payload = jwt.decode(X_Token, "my_super_very_secret_promax_samsung", algorithms=["HS256"])
+        except jwt.ExpiredSignatureError:
+            raise fastapi.HTTPException(status_code=401, detail="Token has expired.")
+        except jwt.InvalidTokenError:
+            raise fastapi.HTTPException(status_code=401, detail="Invalid token.")
+        return cls(**payload)
 
 
 @dataclasses.dataclass(init=True)
@@ -49,8 +72,8 @@ class OTP(BaseModel):
 
 @dataclasses.dataclass(init=True)
 class PasswordReset(BaseModel):
-    user_id: str
-    token: str
-    expired_time: datetime
-    expired: bool
-    comment: str
+    user_id: str = None
+    token: str = None
+    expired_time: datetime = None
+    expired: bool = False
+    comment: str = ""
