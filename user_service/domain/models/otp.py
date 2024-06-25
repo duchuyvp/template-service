@@ -1,7 +1,6 @@
-import dataclasses
 from datetime import datetime
-from core.models import BaseModel
 
+from core.models import BaseModel
 from user_service.domain import events
 
 __all__ = ["OTP"]
@@ -17,7 +16,15 @@ class OTP(BaseModel):
     verified: bool
     comment: str
 
-    def __init__(self, user_id: str, otp: int, email: str = None, phone_number: str = None):
+    def __init__(
+        self,
+        user_id: str,
+        otp: str,
+        email: str | None = None,
+        phone_number: str | None = None,
+        *args,
+        **kwargs,
+    ):
         super().__init__()
         self.user_id = user_id
         self.email = email

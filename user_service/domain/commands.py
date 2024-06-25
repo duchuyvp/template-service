@@ -1,5 +1,6 @@
 from datetime import date
 
+import pydantic
 from core.messages import Command
 
 
@@ -14,7 +15,7 @@ class RegisterEmailCommand(Command):
 
     first_name: str = ""
     last_name: str = ""
-    birthday: date = None
+    birthday: date = pydantic.Field(default_factory=date.today)
     address: str = ""
 
 
@@ -29,7 +30,7 @@ class RegisterPhoneNumberCommand(Command):
 
     first_name: str = ""
     last_name: str = ""
-    birthday: date = None
+    birthday: date = pydantic.Field(default_factory=date.today)
     address: str = ""
 
 

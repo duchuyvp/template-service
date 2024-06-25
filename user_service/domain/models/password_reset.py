@@ -1,5 +1,3 @@
-import dataclasses
-from datetime import date
 from datetime import datetime
 from datetime import timedelta
 
@@ -15,7 +13,7 @@ class PasswordReset(BaseModel):
     expired: bool
     comment: str
 
-    def __init__(self, user_id: str, token: str):
+    def __init__(self, user_id: str, token: str, *args, **kwargs):
         super().__init__()
         self.user_id = user_id
         self.token = token

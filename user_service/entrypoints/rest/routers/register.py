@@ -1,16 +1,10 @@
-import http
-from datetime import datetime
-from typing import Optional
-
 import fastapi
-from icecream import ic
-
-from user_service.domain import commands, models
-from user_service.entrypoints import schemas
+from user_service.domain import commands
 
 from .bus import bus
 
 router = fastapi.APIRouter()
+
 
 @router.post("/register_email", status_code=fastapi.status.HTTP_201_CREATED)
 async def register_email(command: commands.RegisterEmailCommand):

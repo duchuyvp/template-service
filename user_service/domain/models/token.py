@@ -6,7 +6,6 @@ import fastapi
 import jwt
 from core.models import BaseModel
 
-
 __all__ = ["Token"]
 
 
@@ -15,7 +14,7 @@ class Token(BaseModel):
     expired_time: datetime = dataclasses.field(default_factory=lambda: datetime.now() + timedelta(days=1))
     expired: bool
 
-    def __init__(self, user_id: str):
+    def __init__(self, user_id: str, *args, **kwargs):
         super().__init__()
         self.user_id = user_id
         self.expired = False

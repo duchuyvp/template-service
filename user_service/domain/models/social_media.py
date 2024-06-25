@@ -1,5 +1,4 @@
 from core.models import BaseModel
-import dataclasses
 
 __all__ = ["SocialMedia"]
 
@@ -9,7 +8,7 @@ class SocialMedia(BaseModel):
     provider: str
     token: str
 
-    def __init__(self, user_id: str, provider: str, token: str):
+    def __init__(self, user_id: str, provider: str, token: str, *args, **kwargs):
         super().__init__()
         self.user_id = user_id
         self.provider = provider

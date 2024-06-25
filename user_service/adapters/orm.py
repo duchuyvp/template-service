@@ -4,18 +4,17 @@ from typing import Any
 import sqlalchemy as sa
 from core.adapters import create_component_factory
 from core.adapters import sqlalchemy_adapter
-from core.orm import map_once
 from sqlalchemy import Column
 from sqlalchemy import Date
 from sqlalchemy import DateTime
 from sqlalchemy import String
 from sqlalchemy import Table
-
 from user_service.domain import models
 
 logger = logging.getLogger(__name__)
 
-@map_once
+
+# @map_once
 def start_mappers(config: dict[str, Any] | None = None) -> None:
     """
     This method starts the mappers.
