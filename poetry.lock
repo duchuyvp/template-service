@@ -170,6 +170,27 @@ files = [
 ]
 
 [[package]]
+name = "core"
+version = "0.1.0"
+description = ""
+optional = false
+python-versions = "^3.12"
+files = []
+develop = false
+
+[package.dependencies]
+black = "^23.11.0"
+loguru = "^0.7.2"
+pydantic = "^2.6.2"
+utils = {git = "git@github.com:tex-corver/utils.git"}
+
+[package.source]
+type = "git"
+url = "git@github.com:tex-corver/core.git"
+reference = "HEAD"
+resolved_reference = "47e70a42507975cddc7766a3a248fd450b670e72"
+
+[[package]]
 name = "coverage"
 version = "7.4.4"
 description = "Code coverage measurement for Python"
@@ -1402,7 +1423,7 @@ sqlalchemy = "^2.0.23"
 
 [package.source]
 type = "git"
-url = "https://github.com/tex-corver/utils.git"
+url = "git@github.com:tex-corver/utils.git"
 reference = "HEAD"
 resolved_reference = "5ae17279900d5a25e49f0b996037291465a5e2e1"
 
@@ -1461,4 +1482,4 @@ dev = ["black (>=19.3b0)", "pytest (>=4.6.2)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "f06752ea7868b2d41b1d2760300146bf2678ae746b22993f1e554ac706e0f85b"
+content-hash = "c4cefaaa27f9f02c9a4a483bbe9b60c0cbb5e40a8d65d33c08b44ce2290c0126"

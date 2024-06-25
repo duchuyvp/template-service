@@ -2,4 +2,4 @@ database:
   type: "postgres"
   framework: "sqlalchemy"
   connection:
-    url: "postgresql://admin:adminpw@db:5432/test"
+    url: "postgresql://root:admin@192.168.1.100:5432/db"
