@@ -55,6 +55,6 @@ async def login_success(user: models.User = fastapi.Depends(verify_token)) -> st
 
 
 @router.post("/logout", status_code=fastapi.status.HTTP_204_NO_CONTENT)
-async def logout(command: commands.LogoutCommand, user: models.User = fastapi.Depends(verify_token)):
+async def logout(command: commands.LogoutCommand):
     bus.handle(command)
     return fastapi.Response(status_code=200)

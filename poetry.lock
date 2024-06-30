@@ -188,7 +188,7 @@ utils = {git = "git@github.com:tex-corver/utils.git"}
 type = "git"
 url = "git@github.com:tex-corver/core.git"
 reference = "HEAD"
-resolved_reference = "47e70a42507975cddc7766a3a248fd450b670e72"
+resolved_reference = "b362317d5ad0f77f8c13b43ec23ab91cb62037e1"
 
 [[package]]
 name = "coverage"

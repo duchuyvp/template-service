@@ -22,7 +22,7 @@
       "request": "launch",
       "module": "uvicorn",
       "args": [
-        "src.entrypoints.app:app",
+        "user_service.entrypoints.rest.app:app",
         "--reload",
         "--port",
         "32000",

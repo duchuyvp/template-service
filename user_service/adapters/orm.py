@@ -9,21 +9,40 @@ from sqlalchemy import Date
 from sqlalchemy import DateTime
 from sqlalchemy import String
 from sqlalchemy import Table
+from user_service.settings import config
+from sqlalchemy import event
 from user_service.domain import models
+import core
+from core.orm import map_once
 
 logger = logging.getLogger(__name__)
 
 
-# @map_once
-def start_mappers(config: dict[str, Any] | None = None) -> None:
+def setup_model_on_callbacks():
+    def set_in_memory_attributes(obj: core.BaseModel, _):
+        obj.load_from_database()
+
+    for model in [
+        models.OTP,
+        models.PasswordReset,
+        models.SocialMedia,
+        models.Token,
+        models.User,
+    ]:
+        event.listen(model, "load", set_in_memory_attributes)
+
+
+component_factory = create_component_factory(config)
+assert isinstance(component_factory, sqlalchemy_adapter.ComponentFactory)
+
+registry = component_factory.create_orm_registry()
+
+
+@map_once
+def start_mappers() -> None:
     """
     This method starts the mappers.
     """
-
-    component_factory = create_component_factory(config)
-    assert isinstance(component_factory, sqlalchemy_adapter.ComponentFactory)
-
-    registry = component_factory.create_orm_registry()
 
     users = Table(
         "users",
@@ -106,5 +125,7 @@ def start_mappers(config: dict[str, Any] | None = None) -> None:
     registry.map_imperatively(models.PasswordReset, password_reset)
     registry.map_imperatively(models.Token, token)
 
-    engine = component_factory.engine
-    registry.metadata.create_all(bind=engine)
+    setup_model_on_callbacks()
+
+    assert isinstance(component_factory, sqlalchemy_adapter.ComponentFactory)
+    registry.metadata.create_all(bind=component_factory.engine)

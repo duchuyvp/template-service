@@ -25,7 +25,7 @@ class OTP(BaseModel):
         *args,
         **kwargs,
     ):
-        super().__init__()
+        super().__init__(*args, **kwargs)
         self.user_id = user_id
         self.email = email
         self.phone_number = phone_number

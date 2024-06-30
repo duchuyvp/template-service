@@ -2,4 +2,4 @@ database:
   type: "postgres"
   framework: "sqlalchemy"
   connection:
-    url: "postgresql://root:admin@192.168.1.100:5432/db"
+    url: "postgresql://admin:adminpw@host.docker.internal:5432/test"

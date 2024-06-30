@@ -1,8 +1,6 @@
 from fastapi import testclient
 import pytest
 
-from tests.confest import rest_client
-
 
 def test_register_email(rest_client: testclient.TestClient):
     response = rest_client.post(

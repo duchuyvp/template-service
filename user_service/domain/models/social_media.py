@@ -9,7 +9,7 @@ class SocialMedia(BaseModel):
     token: str
 
     def __init__(self, user_id: str, provider: str, token: str, *args, **kwargs):
-        super().__init__()
+        super().__init__(*args, **kwargs)
         self.user_id = user_id
         self.provider = provider
         self.token = token

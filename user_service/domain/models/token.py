@@ -15,7 +15,7 @@ class Token(BaseModel):
     expired: bool
 
     def __init__(self, user_id: str, *args, **kwargs):
-        super().__init__()
+        super().__init__(*args, **kwargs)
         self.user_id = user_id
         self.expired = False
 
