@@ -20,7 +20,7 @@ def get_token_encrypt(_id: str, uow: UnitOfWork) -> str:
         token = uow.repo.get(models.Token, message_id=_id)[0]  # type: models.Token
         value = token.encrypt()
 
-    return value
+    return {"token": value}
 
 
 def get_token(id: str, uow: UnitOfWork) -> models.Token:

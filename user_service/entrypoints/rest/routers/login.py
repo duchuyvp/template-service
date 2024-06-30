@@ -7,8 +7,7 @@ from icecream import ic
 
 from user_service import views
 from user_service.domain import commands, models
-from user_service.entrypoints import schemas
-
+from user_service.entrypoints.rest import schemas
 from .bus import bus
 
 router = fastapi.APIRouter()
@@ -43,7 +42,7 @@ def verify_token(X_Token: str = fastapi.Header(...)):
 
 
 @router.post("/login", status_code=fastapi.status.HTTP_200_OK)
-async def login(command: commands.LoginCommand) -> str:
+async def login(command: commands.LoginCommand) -> schemas.LoginResponseSchema:
     bus.handle(command)
 
     token = views.get_token_encrypt(command._id, uow=bus.uow)
@@ -55,7 +54,7 @@ async def login_success(user: models.User = fastapi.Depends(verify_token)) -> st
     return f"Login success with User: {user.id}"
 
 
-@router.post("/logout", status_code=fastapi.status.HTTP_200_OK)
+@router.post("/logout", status_code=fastapi.status.HTTP_204_NO_CONTENT)
 async def logout(command: commands.LogoutCommand, user: models.User = fastapi.Depends(verify_token)):
     bus.handle(command)
     return fastapi.Response(status_code=200)
