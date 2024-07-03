@@ -20,6 +20,7 @@ WORKDIR /template-service
 COPY pyproject.toml .
 RUN python -m pip install poetry
 RUN poetry config virtualenvs.create false
+RUN --mount=type=ssh ssh-keyscan github.com >> ~/.ssh/known_hosts
 RUN --mount=type=ssh poetry install --no-dev --no-interaction --no-ansi --no-root
 
 # RUN rm -f /root/.ssh/id_ed25519
