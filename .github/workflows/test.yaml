@@ -74,7 +74,6 @@ jobs:
       - run: |
           IMAGE="${{ secrets.REGISTRY_SERVER }}/docker/template-service:${{ github.sha }}"
           docker build \
-            --platform linux/amd64,linux/arm64 \
             --tag $IMAGE \
             --ssh default=ssh-private-key \
             --file Dockerfile .
