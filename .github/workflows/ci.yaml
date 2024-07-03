@@ -106,3 +106,25 @@ jobs:
           repository: duchuyvp/template-infra
           branch: master
           ssh: true
+
+
+      - uses: actions/checkout@v4
+        with:
+          repository: tex-corver/infra
+          ssh-key: ${{ secrets.SSH_CHART_PRIVATE_KEY }}
+          ref: master
+
+      - run: |
+          IMAGE="${{ secrets.REGISTRY_SERVER }}\/docker\/template-service"
+          NEW_IMAGE_TAG="${{ secrets.REGISTRY_SERVER }}/docker/template-service:${{ github.sha }}"
+          find . -type f \( -name "*values.yml" -o -name "*values.yaml" \) -exec sed -i "s|${IMAGE}:.*|${NEW_IMAGE_TAG}|g" {} \;
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          git add .
+          git commit --allow-empty -m "Promoting ${NEW_IMAGE_TAG}"
+
+      - uses: ad-m/github-push-action@master
+        with:
+          repository: tex-corver/infra
+          branch: master
+          ssh: true

@@ -10,8 +10,6 @@ services:
     #     "-c",
     #     "pip install debugpy -t /tmp && python /tmp/debugpy --wait-for-client --listen 0.0.0.0:5678 -m poetry run uvicorn template_service.entrypoints.rest.app:app --host 0.0.0.0 --port 8000",
     #   ]
-    volumes:
-      - ./id_rsa:/root/.ssh/id_rsa
     ports:
       - "8000:8000"
       - "5678:5678"
