@@ -70,13 +70,14 @@ jobs:
           password: ${{ secrets.REGISTRY_PASSWORD }}
           registry: ${{ secrets.REGISTRY_SERVER }}
 
+      - run: echo "${{ secrets.SSH_PRIVATE_KEY }}" > ssh-private-key
       - uses: docker/build-push-action@v6
         with:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: ${{ secrets.REGISTRY_SERVER }}/docker/template-service:${{ github.sha }}
           ssh: |
-            github=${{ secrets.SSH_PRIVATE_KEY }}
+            default=ssh-private-key
 
       - uses: actions/checkout@v4
         with:
