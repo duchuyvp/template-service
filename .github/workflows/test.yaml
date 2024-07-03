@@ -71,13 +71,21 @@ jobs:
           registry: ${{ secrets.REGISTRY_SERVER }}
 
       - run: echo "${{ secrets.SSH_PRIVATE_KEY }}" > ssh-private-key
-      - uses: docker/build-push-action@v6
-        with:
-          platforms: linux/amd64,linux/arm64
-          push: true
-          tags: ${{ secrets.REGISTRY_SERVER }}/docker/template-service:${{ github.sha }}
-          ssh: |
-            default=ssh-private-key
+      - run: |
+          IMAGE="${{ secrets.REGISTRY_SERVER }}/docker/template-service:${{ github.sha }}"
+          docker build \
+            --platform linux/amd64,linux/arm64 \
+            --tag $IMAGE \
+            --ssh default=ssh-private-key \
+            --file Dockerfile .
+          docker push $IMAGE
+      # - uses: docker/build-push-action@v6
+      #   with:
+      #     platforms: linux/amd64,linux/arm64
+      #     push: true
+      #     tags: ${{ secrets.REGISTRY_SERVER }}/docker/template-service:${{ github.sha }}
+      #     ssh: |
+      #       default=ssh-private-key
 
       - uses: actions/checkout@v4
         with:
