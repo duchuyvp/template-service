@@ -8,11 +8,11 @@ EXPOSE 8000
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
-RUN --mount=type=secret,id=ssh-key \
-    mkdir -p /root/.ssh && \
-    cp /run/secrets/ssh-key /root/.ssh/id_ed25519 && \
-    chmod 600 /root/.ssh/id_ed25519 && \
-    ssh-keyscan github.com >> /root/.ssh/known_hosts
+# RUN --mount=type=secret,id=ssh-key \
+#     mkdir -p /root/.ssh && \
+#     cp /run/secrets/ssh-key /root/.ssh/id_ed25519 && \
+#     chmod 600 /root/.ssh/id_ed25519 && \
+#     ssh-keyscan github.com >> /root/.ssh/known_hosts
 
 # RUN  echo "    IdentityFile ~/.ssh/id_ed25519" >> /etc/ssh/ssh_config
 
@@ -20,9 +20,9 @@ WORKDIR /template-service
 COPY pyproject.toml .
 RUN python -m pip install poetry
 RUN poetry config virtualenvs.create false
-RUN poetry install --no-dev --no-interaction --no-ansi --no-root
+RUN --mount=type=ssh poetry install --no-dev --no-interaction --no-ansi --no-root
 
-RUN rm -f /root/.ssh/id_ed25519
+# RUN rm -f /root/.ssh/id_ed25519
 
 COPY . /template-service
 

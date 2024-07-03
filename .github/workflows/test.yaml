@@ -75,8 +75,8 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: ${{ secrets.REGISTRY_SERVER }}/docker/template-service:${{ github.sha }}
-          secrets: |
-            ssh-key=${{ secrets.SSH_PRIVATE_KEY }}
+          ssh: |
+            github.com=${{ secrets.SSH_PRIVATE_KEY }}
 
       - uses: actions/checkout@v4
         with:
