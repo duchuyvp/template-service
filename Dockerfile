@@ -11,7 +11,8 @@ ENV PYTHONUNBUFFERED=1
 RUN --mount=type=secret,id=ssh-key \
     mkdir -p /root/.ssh && \
     cp /run/secrets/ssh-key /root/.ssh/id_ed25519 && \
-    chmod 600 /root/.ssh/id_ed25519 
+    chmod 600 /root/.ssh/id_ed25519 && \
+    ssh-keyscan github.com >> /root/.ssh/known_hosts
 
 # RUN  echo "    IdentityFile ~/.ssh/id_ed25519" >> /etc/ssh/ssh_config
 
