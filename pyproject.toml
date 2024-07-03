@@ -33,6 +33,7 @@ python-multipart = "^0.0.9"
 loguru = "^0.7.2"
 pyjwt = "^2.8.0"
 core = {git = "git@github.com:tex-corver/core.git"}
+markdown = "^3.6"
 [tool.black]
 color=true
 exclude = '''

@@ -7,8 +7,9 @@ import uvicorn
 from template_service.entrypoints.rest import routers
 
 app = fastapi.FastAPI()
-app.include_router(routers.register.router)
-app.include_router(routers.login.router)
+# app.include_router(routers.register.router)
+# app.include_router(routers.login.router)
+app.include_router(routers.index.router)
 
 
 def run():

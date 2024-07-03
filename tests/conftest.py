@@ -32,6 +32,6 @@ def rest_client(config: dict[str, Any]) -> Generator[testclient.TestClient, Any,
     yield testclient.TestClient(app)
 
     # Clean up
-    component_factory = create_component_factory(config)
-    assert isinstance(component_factory, sqlalchemy_adapter.ComponentFactory)
-    registry.metadata.drop_all(bind=component_factory.engine)
+    # component_factory = create_component_factory(config)
+    # assert isinstance(component_factory, sqlalchemy_adapter.ComponentFactory)
+    # registry.metadata.drop_all(bind=component_factory.engine)
