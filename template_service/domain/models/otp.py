@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from core.models import BaseModel
-from user_service.domain import events
+from template_service.domain import events
 
 __all__ = ["OTP"]
 

@@ -2,7 +2,7 @@ import dataclasses
 from datetime import date
 
 from core.models import BaseModel
-from user_service.domain import events
+from template_service.domain import events
 
 __all__ = ["User"]
 

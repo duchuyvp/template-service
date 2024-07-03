@@ -5,9 +5,9 @@ from typing import Optional
 import fastapi
 from icecream import ic
 
-from user_service import views
-from user_service.domain import commands, models
-from user_service.entrypoints.rest import schemas
+from template_service import views
+from template_service.domain import commands, models
+from template_service.entrypoints.rest import schemas
 from .bus import bus
 
 router = fastapi.APIRouter()

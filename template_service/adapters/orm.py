@@ -9,9 +9,9 @@ from sqlalchemy import Date
 from sqlalchemy import DateTime
 from sqlalchemy import String
 from sqlalchemy import Table
-from user_service.settings import config
+from template_service.settings import config
 from sqlalchemy import event
-from user_service.domain import models
+from template_service.domain import models
 import core
 from core.orm import map_once
 

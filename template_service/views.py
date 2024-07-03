@@ -3,7 +3,7 @@ import json
 import jwt
 from core.unit_of_work import UnitOfWork
 
-from user_service.domain import models
+from template_service.domain import models
 
 
 def get_token_encrypt(_id: str, uow: UnitOfWork) -> str:

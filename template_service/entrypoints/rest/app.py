@@ -4,7 +4,7 @@ import logging
 import fastapi
 import uvicorn
 
-from user_service.entrypoints.rest import routers
+from template_service.entrypoints.rest import routers
 
 app = fastapi.FastAPI()
 app.include_router(routers.register.router)

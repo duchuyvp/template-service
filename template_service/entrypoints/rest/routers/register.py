@@ -1,5 +1,5 @@
 import fastapi
-from user_service.domain import commands
+from template_service.domain import commands
 
 from .bus import bus
 

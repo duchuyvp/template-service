@@ -6,9 +6,9 @@ from core import MessageBus
 from core.dependency_injection import inject_dependencies
 from core.unit_of_work import UnitOfWork
 
-from user_service.adapters.orm import start_mappers
-from user_service.service_layer.handlers import command
-from user_service.service_layer.handlers import event
+from template_service.adapters.orm import start_mappers
+from template_service.service_layer.handlers import command
+from template_service.service_layer.handlers import event
 
 
 def bootstrap(

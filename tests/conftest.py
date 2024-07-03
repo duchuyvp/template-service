@@ -6,10 +6,10 @@ import utils
 from fastapi import testclient
 
 from core.adapters import create_component_factory
-from user_service.adapters.orm import registry, component_factory
+from template_service.adapters.orm import registry, component_factory
 from core.adapters import sqlalchemy_adapter
-from user_service.entrypoints.rest.app import app
-from user_service.adapters import orm
+from template_service.entrypoints.rest.app import app
+from template_service.adapters import orm
 
 
 @pytest.fixture(scope="session")

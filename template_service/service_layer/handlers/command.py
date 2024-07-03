@@ -5,8 +5,8 @@ import fastapi
 from core.messages import Command
 from core.unit_of_work import UnitOfWork
 
-from user_service.domain import commands
-from user_service.domain import models
+from template_service.domain import commands
+from template_service.domain import models
 
 
 def handle_register_email_command(command: commands.RegisterEmailCommand, uow: UnitOfWork) -> None:

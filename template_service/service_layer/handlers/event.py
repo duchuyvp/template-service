@@ -5,8 +5,8 @@ from typing import Callable
 from core.messages import Event
 from core.unit_of_work import UnitOfWork
 
-from user_service.domain import events
-from user_service.domain import models
+from template_service.domain import events
+from template_service.domain import models
 
 
 def handle_user_created_event(event: events.UserCreatedEvent, uow: UnitOfWork) -> None:

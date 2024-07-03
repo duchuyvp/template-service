@@ -1,6 +1,6 @@
 import logging
 
-from user_service.entrypoints.rest import app as rest_app
+from template_service.entrypoints.rest import app as rest_app
 
 logger = logging.getLogger("user_service")
 
