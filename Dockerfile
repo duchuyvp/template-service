@@ -13,8 +13,7 @@ RUN --mount=type=secret,id=ssh-key \
     cp /run/secrets/ssh-key /root/.ssh/id_ed25519 && \
     chmod 600 /root/.ssh/id_ed25519 
 
-RUN  echo "    IdentityFile ~/.ssh/id_ed25519" >> /etc/ssh/ssh_config
-RUN cat ~/.ssh/id_ed25519
+# RUN  echo "    IdentityFile ~/.ssh/id_ed25519" >> /etc/ssh/ssh_config
 
 WORKDIR /template-service
 COPY pyproject.toml .
