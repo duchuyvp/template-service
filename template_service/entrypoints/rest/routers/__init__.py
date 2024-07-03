@@ -1,3 +1,3 @@
-from . import register
-from . import login
 from . import index
+from . import login
+from . import register

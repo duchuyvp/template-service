@@ -1,10 +1,9 @@
 import json
 
 import jwt
-from core.unit_of_work import UnitOfWork
 import markdown
 import requests
-
+from core.unit_of_work import UnitOfWork
 from template_service.domain import models
 
 
@@ -74,7 +73,7 @@ def get_token_encrypt(_id: str, uow: UnitOfWork) -> str:
         token = uow.repo.get(models.Token, message_id=_id)[0]  # type: models.Token
         value = token.encrypt()
 
-    return {"token": value}
+    return value
 
 
 def get_token(id: str, uow: UnitOfWork) -> models.Token:

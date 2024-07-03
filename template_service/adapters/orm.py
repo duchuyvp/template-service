@@ -1,19 +1,19 @@
 import logging
 from typing import Any
 
+import core
 import sqlalchemy as sa
 from core.adapters import create_component_factory
 from core.adapters import sqlalchemy_adapter
+from core.orm import map_once
 from sqlalchemy import Column
 from sqlalchemy import Date
 from sqlalchemy import DateTime
+from sqlalchemy import event
 from sqlalchemy import String
 from sqlalchemy import Table
-from template_service.settings import config
-from sqlalchemy import event
 from template_service.domain import models
-import core
-from core.orm import map_once
+from template_service.settings import config
 
 logger = logging.getLogger(__name__)
 

@@ -5,7 +5,6 @@ This module contains the bootstrap function for the allocation application.
 from core import MessageBus
 from core.dependency_injection import inject_dependencies
 from core.unit_of_work import UnitOfWork
-
 from template_service.adapters.orm import start_mappers
 from template_service.service_layer.handlers import command
 from template_service.service_layer.handlers import event

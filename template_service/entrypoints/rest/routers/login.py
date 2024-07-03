@@ -4,10 +4,11 @@ from typing import Optional
 
 import fastapi
 from icecream import ic
-
 from template_service import views
-from template_service.domain import commands, models
+from template_service.domain import commands
+from template_service.domain import models
 from template_service.entrypoints.rest import schemas
+
 from .bus import bus
 
 router = fastapi.APIRouter()
@@ -46,7 +47,7 @@ async def login(command: commands.LoginCommand) -> schemas.LoginResponseSchema:
     bus.handle(command)
 
     token = views.get_token_encrypt(command._id, uow=bus.uow)
-    return token
+    return schemas.LoginResponseSchema(token=token)
 
 
 @router.post("/login_success", status_code=fastapi.status.HTTP_200_OK)

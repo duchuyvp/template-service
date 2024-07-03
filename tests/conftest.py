@@ -1,15 +1,16 @@
 import pathlib
-from typing import Any, Generator
+from typing import Any
+from typing import Generator
 
 import pytest
 import utils
-from fastapi import testclient
-
 from core.adapters import create_component_factory
-from template_service.adapters.orm import registry, component_factory
 from core.adapters import sqlalchemy_adapter
-from template_service.entrypoints.rest.app import app
+from fastapi import testclient
 from template_service.adapters import orm
+from template_service.adapters.orm import component_factory
+from template_service.adapters.orm import registry
+from template_service.entrypoints.rest.app import app
 
 
 @pytest.fixture(scope="session")

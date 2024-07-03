@@ -3,7 +3,6 @@ import logging
 
 import fastapi
 import uvicorn
-
 from template_service.entrypoints.rest import routers
 
 app = fastapi.FastAPI()

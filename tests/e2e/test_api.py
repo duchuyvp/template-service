@@ -1,5 +1,5 @@
-from fastapi import testclient
 import pytest
+from fastapi import testclient
 
 
 def test_index_md(rest_client: testclient.TestClient):
@@ -40,14 +40,14 @@ def test_index_md(rest_client: testclient.TestClient):
 #     rest_client.post(
 #         "/register_email",
 #         json={
-#             "email": "regis@te.r",
+#             "email": "re@gis.ter",
 #             "password": "123456",
 #             "re_password": "123456",
 #         },
 #     )
 
 #     return {
-#         "email": "regis@te.r",
+#         "email": "re@gis.ter",
 #         "password": "123456",
 #         "re_password": "123456",
 #     }

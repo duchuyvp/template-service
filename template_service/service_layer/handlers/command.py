@@ -4,7 +4,6 @@ from typing import Callable
 import fastapi
 from core.messages import Command
 from core.unit_of_work import UnitOfWork
-
 from template_service.domain import commands
 from template_service.domain import models
 
