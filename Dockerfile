@@ -8,13 +8,18 @@ EXPOSE 8000
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
-RUN chmod 600 /root/.ssh/id_rsa
+RUN --mount=type=secret,id=ssh-key \
+    mkdir -p /root/.ssh && \
+    cp /run/secrets/ssh-key /root/.ssh/id_rsa && \
+    chmod 600 /root/.ssh/id_rsa 
 
 WORKDIR /template-service
 COPY pyproject.toml .
 RUN python -m pip install poetry
 RUN poetry config virtualenvs.create false
 RUN poetry install --no-dev --no-interaction --no-ansi --no-root
+
+RUN rm -f /root/.ssh/id_rsa
 
 COPY . /template-service
 
