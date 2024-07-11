@@ -13,7 +13,7 @@ My most recent job was a software engineer and also a member of the DevOps team 
 Architecture.
 - **[template-infra](https://github.com/duchuyvp/template-infra)**: A simple infrastructure for a system support CI/CD pipeline and stuff fully managed by ArgoCD.
 - Demo:
-  - [lunalovegood.dev](https://lunalovegood.dev/) (this site): This site is running on [template-service](https://github.com/duchuyvp/template-service) source code and deployed by [template-service](https://github.com/duchuyvp/template-service).
+  - [lunalovegood.dev](https://lunalovegood.dev/) (this site): This site is running on [template-service](https://github.com/duchuyvp/template-service) source code and deployed by [template-infra](https://github.com/duchuyvp/template-infra).
   - [argocd.lunalovegood.dev](https://argocd.lunalovegood.dev/): UI for ArgoCD to managed resources.
   - [grafana.lunalovegood.dev](https://grafana.lunalovegood.dev/): Monitoring system using Grafana (credentials: admin/prom-operator if you interested).
   - [prometheus.lunalovegood.dev](https://prometheus.lunalovegood.dev/): A place to query metrics from Prometheus.

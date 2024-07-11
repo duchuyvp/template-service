@@ -47,6 +47,7 @@ def get_index() -> str:
         github_css = "/* Fallback CSS in case the request fails */"
 
     styled_html = f"""
+    <title>Nguyễn Đức Huy</title>
     <style>
     body {{ background-color: #121212; color: #e0e0e0; }}
     {github_css}
