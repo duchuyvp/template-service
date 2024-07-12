@@ -2,9 +2,6 @@ FROM python:3.12
 
 EXPOSE 8000
 
-# ARG GITHUB_TOKEN
-# RUN git config --global url."https://${GITHUB_TOKEN}@github.com".insteadOf "https://github.com"
-
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
