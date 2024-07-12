@@ -32,7 +32,7 @@ def setup_model_on_callbacks():
         event.listen(model, "load", set_in_memory_attributes)
 
 
-component_factory = create_component_factory(config)
+component_factory = create_component_factory(config["database"])
 assert isinstance(component_factory, sqlalchemy_adapter.ComponentFactory)
 
 registry = component_factory.create_orm_registry()

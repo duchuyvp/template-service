@@ -8,6 +8,7 @@ from core.unit_of_work import UnitOfWork
 from template_service.adapters.orm import start_mappers
 from template_service.service_layer.handlers import command
 from template_service.service_layer.handlers import event
+from template_service.settings import config
 
 
 def bootstrap(
@@ -28,7 +29,7 @@ def bootstrap(
         start_mappers()
 
     if isinstance(uow, type):
-        uow = uow()
+        uow = uow(config=config["database"])
 
     dependencies = {"uow": uow}
     injected_event_handlers = {
