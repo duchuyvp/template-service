@@ -15,8 +15,6 @@ RUN --mount=type=ssh mkdir -p ~/.ssh
 RUN --mount=type=ssh ssh-keyscan github.com > ~/.ssh/known_hosts
 RUN --mount=type=ssh poetry install --no-dev --no-interaction --no-ansi --no-root
 
-# RUN rm -f /root/.ssh/id_ed25519
-
 COPY . /template-service
 
 CMD ["uvicorn", "template_service.entrypoints.rest.app:app", "--host", "0.0.0.0", "--port", "8000"]
