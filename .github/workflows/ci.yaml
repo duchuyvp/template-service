@@ -90,7 +90,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: tex-corver/infra
-          ssh-key: ${{ secrets.SSH_CHART_PRIVATE_KEY }}
+          ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
           ref: master
 
       - run: |
